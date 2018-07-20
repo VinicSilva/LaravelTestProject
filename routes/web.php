@@ -19,4 +19,7 @@ Route::prefix('cliente')->group(function(){
     Route::get('/', 'ClientsController@index');
     Route::get('/cadastrar', 'ClientsController@cadastrarCliente');
     Route::post('/cadastrar', 'ClientsController@cadastrar');
+    Route::get('/editar/{id}', 'ClientsController@editarCliente');
+    Route::post('/editar/{id}', 'ClientsController@editar');
+    Route::get('/excluir/{id}', 'ClientsController@excluir');
 });

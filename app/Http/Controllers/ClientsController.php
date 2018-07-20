@@ -20,10 +20,52 @@ class ClientsController extends Controller
 
     public function cadastrar(Request $request)
     {
-        $c = new Client();
-        $c->name = $request->get('name');
-        $c->email= $request->get('email');
-        $c->save();
+        $client = new Client();
+        $client->name = $request->get('name');
+        $client->email = $request->get('email');
+        $client->save();
+        return redirect()->to('/cliente/');
+    }
+
+    public function editarCliente($id)
+    {
+        $client = Client::find($id);
+
+        if (!$client) {
+            abort(404);
+        }
+
+        return view('clients.edit', compact('client'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editar(Request $request, $id)
+    {
+        $client = Client::find($id);
+
+        if (!$client) {
+            abort(404);
+        }
+
+        $client->name = $request->get('name');
+        $client->email = $request->get('email');
+        $client->save();
+        return redirect()->to('/cliente/');
+    }
+
+    public function excluir($id)
+    {
+        $client = Client::find($id);
+
+        if (!$client) {
+            abort(404);
+        }
+
+        $client->delete();
         return redirect()->to('/cliente/');
     }
 }

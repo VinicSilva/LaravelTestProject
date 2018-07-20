@@ -17,5 +17,6 @@ Route::get('/', function () {
 
 Route::prefix('cliente')->group(function(){
     Route::get('/', 'ClientsController@index');
-    Route::post('/cadastrar', 'ClientsController@cad');
+    Route::get('/cadastrar', 'ClientsController@cadastrarCliente');
+    Route::post('/cadastrar', 'ClientsController@cadastrar');
 });

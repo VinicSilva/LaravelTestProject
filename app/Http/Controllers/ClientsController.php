@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
     public function index()
     {
-        return view('cadastrar', ['res' => getenv('APP_URL')]);
+        $clients = Client::all();
+        return view('clients.index', compact('clients'));
     }
 
-    public function cadastrar()
+    public function cadastrarCliente()
     {
-        return view('cadastrar', ['res' => getenv('APP_URL')]);
+        return view('clients.create');
+    }
+
+    public function cadastrar(Request $request)
+    {
+        $c = new Client();
+        $c->name = $request->get('name');
+        $c->email= $request->get('email');
+        $c->save();
+        return redirect()->to('/cliente/');
     }
 }
